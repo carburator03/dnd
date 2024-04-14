@@ -53,4 +53,9 @@ class User extends Authenticatable
         return $this->hasMany(Character::class);
     }
 
+    public function contests()
+{
+    return $this->hasMany(Contest::class);
+}
+
 }

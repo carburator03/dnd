@@ -54,8 +54,14 @@ class User extends Authenticatable
     }
 
     public function contests()
-{
+    {
     return $this->hasMany(Contest::class);
-}
+    }
+
+public function places()
+    {
+    return $this->hasMany(Place::class);
+    }
+
 
 }

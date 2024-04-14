@@ -13,4 +13,10 @@ class Contest extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function characters()
+    {
+    return $this->belongsToMany(Character::class)->withPivot('hero_hp', 'enemy_hp')->withTimestamps();
+    }
+
 }

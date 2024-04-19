@@ -57,11 +57,4 @@ class User extends Authenticatable
     {
     return $this->hasMany(Contest::class);
     }
-
-public function places()
-    {
-    return $this->hasMany(Place::class);
-    }
-
-
 }

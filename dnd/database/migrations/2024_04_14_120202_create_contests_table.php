@@ -16,6 +16,7 @@ return new class extends Migration
         $table->boolean('win')->nullable();
         $table->text('history')->nullable();
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        $table->foreignId('place_id')->constrained()->onDelete('cascade');
         $table->timestamps();
     });
 }

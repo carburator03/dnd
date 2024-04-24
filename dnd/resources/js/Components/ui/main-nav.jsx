@@ -38,6 +38,12 @@ export function MainNav({ isUserLoggedIn = false, className, ...props }) {
                             >
                                 Kezdőlap
                             </Link>
+                            <Link
+                                href="/characters"
+                                className="text-sm font-medium transition-colors hover:text-primary"
+                            >
+                                Karakterek
+                            </Link>
                         </nav>
                     </div>
                     <div className="ml-auto flex items-center space-x-4">

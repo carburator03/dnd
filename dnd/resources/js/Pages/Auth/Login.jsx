@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect } from "react";
 import {
     Card,
@@ -34,35 +34,49 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <form onSubmit={submit}>
-        <div className="flex justify-center items-center h-screen">
-            <Card className="my-8">
-                <CardHeader className="space-y-1">
-                    <CardTitle className="text-2xl">
-                       Bejelentkezés
-                    </CardTitle>
-                    <CardDescription>
-                        A bejelentkezéshez kérlek add meg az email címed és a jelszavad.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="grid gap-4">
-                    <div className="grid gap-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                            id="email"
-                            type="email"
-                            placeholder="janos@freemail.com"
-                        />
-                    </div>
-                    <div className="grid gap-2">
-                        <Label htmlFor="password">Jelszó</Label>
-                        <Input id="password" type="password" />
-                    </div>
-                </CardContent>
-                <CardFooter>
-                    <Button className="w-full">Create account</Button>
-                </CardFooter>
-            </Card>
-        </div>
+            <div className="flex justify-center items-center h-screen">
+                <Card className="my-8">
+                    <CardHeader className="space-y-1">
+                        <CardTitle className="text-2xl">
+                            Bejelentkezés
+                        </CardTitle>
+                        <CardDescription>
+                            A bejelentkezéshez kérlek add meg az email címed és
+                            a jelszavad.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid gap-4">
+                        <div className="grid gap-2">
+                            <Label htmlFor="email">Email</Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                name="email"
+                                placeholder="janos@freemail.com"
+                                value={data.email}
+                                onChange={(e) =>
+                                    setData("email", e.target.value)
+                                }
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="password">Jelszó</Label>
+                            <Input
+                                id="password"
+                                type="password"
+                                name="password"
+                                value={data.password}
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
+                                }
+                            />
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <Button className="w-full">Bejelentkezés</Button>
+                    </CardFooter>
+                </Card>
+            </div>
         </form>
     );
 

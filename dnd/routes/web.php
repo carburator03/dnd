@@ -24,10 +24,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// /characters a ./Pages/Character Componentet tölti be
 Route::get('/characters', function () {
     return Inertia::render('Characters');
-})->name('characters');
+})->middleware(['auth', 'verified'])->name('characters');
 
 
 

@@ -1,14 +1,13 @@
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "./table";
 
-export function CharacterTable({ characters }) {
+export function CharacterTable({ characters, user }) {
     return (
         <Table>
             <TableHeader>
@@ -22,18 +21,22 @@ export function CharacterTable({ characters }) {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {characters.map((character) => (
-                    <TableRow key={character.id}>
-                        <TableCell>{character.name}</TableCell>
-                        <TableCell>{character.defence}</TableCell>
-                        <TableCell>{character.strength}</TableCell>
-                        <TableCell>{character.accuracy}</TableCell>
-                        <TableCell>{character.magic}</TableCell>
-                        <TableCell>
-                            {character.enemy ? "Igen" : "Nem"}
-                        </TableCell>
-                    </TableRow>
-                ))}
+                {characters.map((character) => {
+                    if (character.user_id === user.id) {
+                        return (
+                            <TableRow key={character.id}>
+                                <TableCell>{character.name}</TableCell>
+                                <TableCell>{character.defense}</TableCell>
+                                <TableCell>{character.strength}</TableCell>
+                                <TableCell>{character.accuracy}</TableCell>
+                                <TableCell>{character.magic}</TableCell>
+                                <TableCell>
+                                    {character.enemy ? "Igen" : "Nem"}
+                                </TableCell>
+                            </TableRow>
+                        );
+                    }
+                })}
             </TableBody>
         </Table>
     );

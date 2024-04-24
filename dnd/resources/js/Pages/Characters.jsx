@@ -1,11 +1,10 @@
 import React from "react";
 import { MainNav } from "../Components/ui/main-nav";
-import { ScoreBoard } from "@/Components/ui/score-board";
-import { CharacterTable } from "@/Components/ui/character-table";
+import { CharacterTable } from "../Components/ui/character-table"; // Update the import path
 import { useState, useEffect } from "react";
 
-const Characters = () => {
-    const [totalCharacters, setTotalCharacters] = useState(0);
+const Characters = ({ auth }) => {
+    const [totalCharacters, setTotalCharacters] = useState([]);
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/characters")
@@ -31,7 +30,7 @@ const Characters = () => {
                 </div>
             </div>
 
-            <CharacterTable characters={totalCharacters} />
+            <CharacterTable characters={totalCharacters} user={auth.user} />
         </div>
     );
 };

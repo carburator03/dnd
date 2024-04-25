@@ -67,9 +67,9 @@ class CharacterController extends Controller
 
     public function updateCharacter(Request $request, $id) {
         $character = Character::find($id);
-        if ($character->user_id !== Auth::id()) {
-            return response()->json('Unauthorized', 401);
-        }
+        // if ($character->user_id !== Auth::id()) {
+        //     return response()->json('Unauthorized', 401);
+        // }
         $character->name = $request->name;
         $character->enemy = $request->enemy;
         $character->defence = $request->defence;

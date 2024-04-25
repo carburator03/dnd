@@ -19,18 +19,14 @@ const Characters = ({ auth }) => {
     }, [totalCharacters]);
 
     return (
-        <div className="hidden flex-col md:flex justify-center items-center w-full">
+        <div className="hidden flex-col md:flex justify-center items-center w-full gap-4">
             <div className="border-b w-full">
                 <div className="flex h-16 items-center px-4">
                     <MainNav className="mx-6" />
                 </div>
             </div>
 
-            <div className="flex-1 space-y-4 p-8 pt-6 w-1/2">
-                <div className="flex items-center justify-between space-y-2">
-                    <h1>Karakterek</h1>
-                </div>
-            </div>
+            <h1 className="uppercase font-bold text-2xl ">Karakterek</h1>
 
             <CharacterTable
                 characters={totalCharacters}

@@ -32,7 +32,7 @@ export function CharacterTable({ characters, user, setCharacter }) {
                         return (
                             <TableRow key={character.id}>
                                 <TableCell>{character.name}</TableCell>
-                                <TableCell>{character.defense}</TableCell>
+                                <TableCell>{character.defence}</TableCell>
                                 <TableCell>{character.strength}</TableCell>
                                 <TableCell>{character.accuracy}</TableCell>
                                 <TableCell>{character.magic}</TableCell>

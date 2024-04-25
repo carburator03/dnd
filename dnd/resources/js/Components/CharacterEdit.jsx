@@ -8,7 +8,7 @@ import {
     CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
-import { boolean, z } from "zod";
+import { boolean, set, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -22,6 +22,8 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
+import axios from "axios";
+import { useState } from "react";
 
 const items = [
     {
@@ -66,13 +68,8 @@ const formSchema = z.object({
     items: z.array(z.string()),
 });
 
-const onSubmit = (values) => {
-    values.enemy = values.items.includes("enemy") ? "1" : "0";
-    delete values.items;
-    console.log(values);
-};
-
-const CharacterEdit = ({ character }) => {
+const CharacterEdit = ({ character, setCharacter }) => {
+    const [serverResponse, setServerResponse] = useState("");
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -85,10 +82,45 @@ const CharacterEdit = ({ character }) => {
         },
     });
 
+    const onSubmit = async (values) => {
+        values.enemy = values.items.includes("enemy") ? "1" : "0";
+        delete values.items;
+
+        const token = localStorage.getItem("token");
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        const updatedCharacter = {
+            ...character,
+            ...values,
+        };
+
+        try {
+            const response = await axios.put(
+                `/api/characters/update/${character.id}`,
+                updatedCharacter,
+            );
+            setServerResponse(response.data);
+        } catch (error) {
+            setServerResponse(error.response.data.message);
+        }
+    };
+
+    const handleCloseCard = () => {
+        setCharacter(null);
+    };
+
     return (
-        <Card className="mt-4">
+        <Card>
             <CardHeader>
-                <CardTitle>Karakter szerkesztés</CardTitle>
+                <CardTitle className="flex justify-between">
+                    <p>Karakter szerkesztés</p>
+                    <p
+                        className="cursor-pointer"
+                        onClick={() => handleCloseCard()}
+                    >
+                        ❌
+                    </p>
+                </CardTitle>
                 <CardDescription>Add meg a karakter adatait</CardDescription>
             </CardHeader>
             <CardContent>
@@ -239,6 +271,9 @@ const CharacterEdit = ({ character }) => {
                     </form>
                 </Form>
             </CardContent>
+            <CardFooter>
+                <p>{serverResponse}</p>
+            </CardFooter>
         </Card>
     );
 };

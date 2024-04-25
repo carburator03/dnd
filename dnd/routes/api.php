@@ -56,10 +56,17 @@ Route::post('/characters/new', function (Request $request) {
     return $characterService->createCharacter($request);
 });
 
+
+// Route::middleware('auth:api')->group(function () {
+
+// });
+
 Route::put('/characters/update/{id}', function (Request $request, string $id) {
     $characterService = new CharacterController();
     return $characterService->updateCharacter($request, $id);
 });
+
+
 
 //---------------------
 

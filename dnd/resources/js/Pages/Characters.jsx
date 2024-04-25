@@ -2,9 +2,11 @@ import React from "react";
 import { MainNav } from "../Components/ui/main-nav";
 import { CharacterTable } from "../Components/ui/character-table"; // Update the import path
 import { useState, useEffect } from "react";
+import CharacterEdit from "@/Components/CharacterEdit";
 
 const Characters = ({ auth }) => {
     const [totalCharacters, setTotalCharacters] = useState([]);
+    const [character, setCharacter] = useState(null);
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/characters")
@@ -30,7 +32,17 @@ const Characters = ({ auth }) => {
                 </div>
             </div>
 
-            <CharacterTable characters={totalCharacters} user={auth.user} />
+            <CharacterTable
+                characters={totalCharacters}
+                user={auth.user}
+                setCharacter={setCharacter}
+            />
+            {character && (
+                <CharacterEdit
+                    character={character}
+                    setCharacter={setCharacter}
+                />
+            )}
         </div>
     );
 };

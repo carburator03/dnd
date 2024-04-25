@@ -42,12 +42,26 @@ class DatabaseSeeder extends Seeder
         foreach (range(1, 5) as $index) {
             $characters[] = Character::create([
                 'name' => $faker->name,
-                'enemy' => $faker->boolean(30),
+                'enemy' => false,
                 'defence' => $faker->numberBetween(0, 3),
                 'strength' => $faker->numberBetween(0, 5),
                 'accuracy' => $faker->numberBetween(0, 5),
                 'magic' => $faker->numberBetween(0, 5),
                 'user_id' => $users[rand(0, 4)]->id
+            ]);
+        }
+
+        // add enemies
+
+        foreach (range(1, 3) as $index) {
+            $characters[] = Character::create([
+                'name' => $faker->name,
+                'enemy' => true,
+                'defence' => $faker->numberBetween(0, 3),
+                'strength' => $faker->numberBetween(0, 5),
+                'accuracy' => $faker->numberBetween(0, 5),
+                'magic' => $faker->numberBetween(0, 5),
+                'user_id' => 1
             ]);
         }
 

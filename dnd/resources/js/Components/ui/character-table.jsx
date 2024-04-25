@@ -6,8 +6,13 @@ import {
     TableHeader,
     TableRow,
 } from "./table";
+import { Button } from "./button";
 
-export function CharacterTable({ characters, user }) {
+export function CharacterTable({ characters, user, setCharacter }) {
+    const handleEditButton = (character) => {
+        setCharacter(character);
+    };
+
     return (
         <Table>
             <TableHeader>
@@ -18,6 +23,7 @@ export function CharacterTable({ characters, user }) {
                     <TableHead className="w-[100px]">Pontosság</TableHead>
                     <TableHead className="w-[100px]">Mágia</TableHead>
                     <TableHead className="w-[100px]">Ellenség?</TableHead>
+                    <TableHead className="w-[100px]">Műveletek</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -32,6 +38,21 @@ export function CharacterTable({ characters, user }) {
                                 <TableCell>{character.magic}</TableCell>
                                 <TableCell>
                                     {character.enemy ? "Igen" : "Nem"}
+                                </TableCell>
+                                <TableCell>
+                                    <Button
+                                        onClick={() =>
+                                            handleEditButton(character)
+                                        }
+                                    >
+                                        ✏️Szerkesztés
+                                    </Button>
+                                    <Button
+                                        variant="destructive"
+                                        className="mx-4"
+                                    >
+                                        🗑️Törlés
+                                    </Button>
                                 </TableCell>
                             </TableRow>
                         );

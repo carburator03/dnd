@@ -1,5 +1,6 @@
 import {
     Table,
+    TableCaption,
     TableBody,
     TableCell,
     TableHead,
@@ -7,10 +8,32 @@ import {
     TableRow,
 } from "./table";
 import { Button } from "./button";
+import { Pencil, Trash2 } from "lucide-react";
+import axios from "axios";
+import { useState } from "react";
 
-export function CharacterTable({ characters, user, setCharacter }) {
+export function CharacterTable({
+    characters,
+    user,
+    setCharacter,
+    setServerResponse,
+}) {
     const handleEditButton = (character) => {
+        character.method = "PUT";
         setCharacter(character);
+    };
+
+    const handleDeleteButton = (character) => {
+        axios
+            .delete(
+                `http://127.0.0.1:8000/api/characters/delete/${character.id}`,
+            )
+            .then((response) => {
+                setServerResponse(response.data);
+            })
+            .catch((error) => {
+                setServerResponse(error.message);
+            });
     };
 
     return (
@@ -39,19 +62,24 @@ export function CharacterTable({ characters, user, setCharacter }) {
                                 <TableCell>
                                     {character.enemy ? "Igen" : "Nem"}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="font-bold">
                                     <Button
                                         onClick={() =>
                                             handleEditButton(character)
                                         }
                                     >
-                                        ✏️Szerkesztés
+                                        <Pencil className="h-4 w-4 mx-2" />
+                                        <p className="font-bold">Szerkesztés</p>
                                     </Button>
                                     <Button
+                                        onClick={() =>
+                                            handleDeleteButton(character)
+                                        }
                                         variant="destructive"
                                         className="mx-4"
                                     >
-                                        🗑️Törlés
+                                        <Trash2 className="h-4 w-4 mx-2" />
+                                        <p className="font-bold">Törlés</p>
                                     </Button>
                                 </TableCell>
                             </TableRow>

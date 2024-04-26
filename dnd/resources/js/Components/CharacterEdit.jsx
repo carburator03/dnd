@@ -24,6 +24,7 @@ import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
 import axios from "axios";
 import { useState } from "react";
+import { X } from "lucide-react";
 
 const items = [
     {
@@ -68,8 +69,12 @@ const formSchema = z.object({
     items: z.array(z.string()),
 });
 
-const CharacterEdit = ({ character, setCharacter }) => {
-    const [serverResponse, setServerResponse] = useState("");
+const CharacterEdit = ({
+    character,
+    setCharacter,
+    auth,
+    setServerResponse,
+}) => {
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -85,6 +90,8 @@ const CharacterEdit = ({ character, setCharacter }) => {
     const onSubmit = async (values) => {
         values.enemy = values.items.includes("enemy") ? "1" : "0";
         delete values.items;
+        const method = character.method;
+        delete character.method;
 
         const token = localStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -92,16 +99,21 @@ const CharacterEdit = ({ character, setCharacter }) => {
         const updatedCharacter = {
             ...character,
             ...values,
+            user_id: auth.user.id,
         };
 
         try {
-            const response = await axios.put(
-                `/api/characters/update/${character.id}`,
-                updatedCharacter,
-            );
+            const response =
+                method == "PUT"
+                    ? await axios.put(
+                          `/api/characters/update/${character.id}`,
+                          updatedCharacter,
+                      )
+                    : await axios.post("/api/characters/new", updatedCharacter);
+            setCharacter(null);
             setServerResponse(response.data);
         } catch (error) {
-            setServerResponse(error.response.data.message);
+            setServerResponse(error.message);
         }
     };
 
@@ -114,12 +126,12 @@ const CharacterEdit = ({ character, setCharacter }) => {
             <CardHeader>
                 <CardTitle className="flex justify-between">
                     <p>Karakter szerkesztés</p>
-                    <p
+                    <div
                         className="cursor-pointer"
                         onClick={() => handleCloseCard()}
                     >
-                        ❌
-                    </p>
+                        <X />
+                    </div>
                 </CardTitle>
                 <CardDescription>Add meg a karakter adatait</CardDescription>
             </CardHeader>
@@ -271,9 +283,6 @@ const CharacterEdit = ({ character, setCharacter }) => {
                     </form>
                 </Form>
             </CardContent>
-            <CardFooter>
-                <p>{serverResponse}</p>
-            </CardFooter>
         </Card>
     );
 };

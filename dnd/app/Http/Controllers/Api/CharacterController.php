@@ -31,18 +31,22 @@ class CharacterController extends Controller
     }
 
     public function deleteCharacter($id) {
-        $character = Character::find($id);
-        if ($character->user_id !== Auth::id()) {
-            return response()->json('Unauthorized', 401);
+        try {
+            $character = Character::findOrFail($id);
+            // if ($character->user_id !== Auth::id()) {
+            //     return response()->json('Unauthorized', 401);
+            // }
+            $character->delete();
+            return response()->json('Karakter törölve!', 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-        $character->delete();
-        return response()->json('Character deleted', 200);
     }
 
     public function createCharacter(Request $request) {
         $character = new Character();
         $character->name = $request->name;
-        $character->user_id = Auth::id();
+        $character->user_id = $request->user_id;
         $character->enemy = $request->enemy;
         $character->defence = $request->defence;
         $character->strength = $request->strength;
@@ -62,7 +66,7 @@ class CharacterController extends Controller
         }
 
         $character->save();
-        return response()->json($character);
+        return response()->json("Karakter sikeresen létrehozva!", 201);
     }
 
     public function updateCharacter(Request $request, $id) {
@@ -90,7 +94,7 @@ class CharacterController extends Controller
         }
 
         $character->save();
-        return response()->json('Character updated!', 200);
+        return response()->json('Karakter sikeresen frissítve!', 200);
     }
 }
 

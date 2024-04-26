@@ -26,6 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/characters', function () {
         return Inertia::render('Characters');
     })->name('characters.index');
+    Route::get('/places', function () {
+        return Inertia::render('Places');
+    })->name('places.index');
 });
 
 

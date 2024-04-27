@@ -4,6 +4,7 @@ import { CharacterTable } from "../Components/ui/character-table"; // Update the
 import { useState, useEffect } from "react";
 import CharacterEdit from "@/Components/CharacterEdit";
 import CharacterAdd from "@/Components/CharacterAdd";
+import { ErrorBoundary } from "react-error-boundary";
 
 const Characters = ({ auth }) => {
     const [totalCharacters, setTotalCharacters] = useState([]);
@@ -24,7 +25,16 @@ const Characters = ({ auth }) => {
         <div className="hidden flex-col md:flex justify-center items-center w-full gap-4">
             <div className="border-b w-full">
                 <div className="flex h-16 items-center px-4">
-                    <MainNav className="mx-6" />
+                <ErrorBoundary fallback={<span />}>
+                        <MainNav
+                            className="mx-6"
+                            user={
+                                auth.user !== null
+                                    ? auth.user
+                                    : { isLoggedIn: false, admin: 0 }
+                            }
+                        />
+                    </ErrorBoundary>
                 </div>
             </div>
 

@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { ScoreBoard } from "@/Components/ui/score-board";
 import { ErrorBoundary } from "react-error-boundary";
 
-const Welcome = ({ auth, laravelVersion, phpVersion }) => {
+const Welcome = ({ auth }) => {
     const [totalCharacters, setTotalCharacters] = useState(0);
     const [totalContests, setTotalContests] = useState(0);
 
@@ -36,7 +36,14 @@ const Welcome = ({ auth, laravelVersion, phpVersion }) => {
             <div className="border-b w-full">
                 <div className="flex h-16 items-center px-4">
                     <ErrorBoundary fallback={<span />}>
-                        <MainNav className="mx-6" isUserLoggedIn={true} />
+                        <MainNav
+                            className="mx-6"
+                            user={
+                                auth.user !== null
+                                    ? auth.user
+                                    : { isLoggedIn: false, admin: 0 }
+                            }
+                        />
                     </ErrorBoundary>
                 </div>
             </div>

@@ -40,9 +40,7 @@ export function UserNav() {
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    Log out
-                </DropdownMenuItem>
+                <DropdownMenuItem>Log out</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     );

@@ -2,11 +2,12 @@ import { cn } from "@/lib/utils";
 import { Link } from "@inertiajs/react";
 import { UserNav } from "./user-nav";
 import { Button } from "./button";
+import { forwardRef } from 'react';
 
-export function MainNav({ isUserLoggedIn = false, className, ...props }) {
+const MainNav =  forwardRef(function ({ user, className, ...props }, ref) {
     const renderUserOrButtons = () => {
-        if (isUserLoggedIn) {
-            return <UserNav />;
+        if (user && user.name) {
+            return <UserNav user={user} />;
         } else {
             return (
                 <>
@@ -38,12 +39,22 @@ export function MainNav({ isUserLoggedIn = false, className, ...props }) {
                             >
                                 Kezdőlap
                             </Link>
-                            <Link
-                                href="/characters"
-                                className="text-sm font-medium transition-colors hover:text-primary"
-                            >
-                                Karakterek
-                            </Link>
+                            {user && (
+                                <Link
+                                    href="/characters"
+                                    className="text-sm font-medium transition-colors hover:text-primary"
+                                >
+                                    Karakterek
+                                </Link>
+                            )}
+                            {user && user.admin == 1 && (
+                                <Link
+                                    href="/places"
+                                    className="text-sm font-medium transition-colors hover:text-primary"
+                                >
+                                    Helyszinek
+                                </Link>
+                            )}
                         </nav>
                     </div>
                     <div className="ml-auto flex items-center space-x-4">
@@ -53,4 +64,6 @@ export function MainNav({ isUserLoggedIn = false, className, ...props }) {
             </div>
         </div>
     );
-}
+});
+
+export { MainNav };

@@ -2,8 +2,9 @@ import React from "react";
 import { MainNav } from "../Components/ui/main-nav";
 import { useState, useEffect } from "react";
 import { PlacesTable } from "../Components/ui/places-table";
+import { ErrorBoundary } from "react-error-boundary";
 
-const Places = () => {
+const Places = ({auth}) => {
     const [totalPlaces, setTotalPlaces] = useState([]);
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/places")
@@ -19,7 +20,16 @@ const Places = () => {
         <div className="hidden flex-col md:flex justify-center items-center w-full gap-4">
             <div className="border-b w-full">
                 <div className="flex h-16 items-center px-4">
-                    <MainNav className="mx-6" />
+                <ErrorBoundary fallback={<span />}>
+                        <MainNav
+                            className="mx-6"
+                            user={
+                                auth.user !== null
+                                    ? auth.user
+                                    : { isLoggedIn: false, admin: 0 }
+                            }
+                        />
+                    </ErrorBoundary>
                 </div>
             </div>
 

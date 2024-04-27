@@ -93,9 +93,6 @@ const CharacterEdit = ({
         const method = character.method;
         delete character.method;
 
-        const token = localStorage.getItem("token");
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
         const updatedCharacter = {
             ...character,
             ...values,
@@ -108,8 +105,13 @@ const CharacterEdit = ({
                     ? await axios.put(
                           `/api/characters/update/${character.id}`,
                           updatedCharacter,
+                          { withCredentials: true }, // Add this line
                       )
-                    : await axios.post("/api/characters/new", updatedCharacter);
+                    : await axios.post(
+                          "/api/characters/new",
+                          updatedCharacter,
+                          { withCredentials: true },
+                      ); // Add this line
             setCharacter(null);
             setServerResponse(response.data);
         } catch (error) {

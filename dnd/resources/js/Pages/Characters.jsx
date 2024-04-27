@@ -25,7 +25,7 @@ const Characters = ({ auth }) => {
         <div className="hidden flex-col md:flex justify-center items-center w-full gap-4">
             <div className="border-b w-full">
                 <div className="flex h-16 items-center px-4">
-                <ErrorBoundary fallback={<span />}>
+                    <ErrorBoundary fallback={<span />}>
                         <MainNav
                             className="mx-6"
                             user={
@@ -54,10 +54,7 @@ const Characters = ({ auth }) => {
                     setServerResponse={setServerResponse}
                 />
             )}
-            <CharacterAdd
-                setCharacter={setCharacter}
-                setServerResponse={setServerResponse}
-            />
+            <CharacterAdd setCharacter={setCharacter} />
             <div>
                 <p className="font-bold">{serverResponse}</p>
             </div>

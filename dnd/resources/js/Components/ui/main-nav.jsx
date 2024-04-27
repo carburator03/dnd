@@ -2,9 +2,9 @@ import { cn } from "@/lib/utils";
 import { Link } from "@inertiajs/react";
 import { UserNav } from "./user-nav";
 import { Button } from "./button";
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-const MainNav =  forwardRef(function ({ user, className, ...props }, ref) {
+const MainNav = forwardRef(function ({ user, className, ...props }, ref) {
     const renderUserOrButtons = () => {
         if (user && user.name) {
             return <UserNav user={user} />;
@@ -52,7 +52,7 @@ const MainNav =  forwardRef(function ({ user, className, ...props }, ref) {
                                     href="/places"
                                     className="text-sm font-medium transition-colors hover:text-primary"
                                 >
-                                    Helyszinek
+                                    Helyszínek
                                 </Link>
                             )}
                         </nav>

@@ -26,7 +26,7 @@ class PlaceController extends Controller
         $place->name = $request->name;
         $place->image = $request->image;
         $place->save();
-        return response()->json('Helyszín sikeresenlétrehozva!', 200);
+        return response()->json('Helyszín sikeresen létrehozva!', 200);
     }
 
     public function updatePlace(Request $request, $id)

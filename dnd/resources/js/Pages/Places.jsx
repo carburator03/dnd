@@ -43,7 +43,7 @@ const Places = ({ auth }) => {
                 <p className="font-bold">{serverResponse}</p>
             </div>
 
-            <PlaceAdd />
+            <PlaceAdd setPlace={setPlace} />
 
             {place && (
                 <PlaceEdit

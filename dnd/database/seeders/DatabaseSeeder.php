@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         $admin = User::create([
             'name' => 'Admin',
-            'email' => 'admin3@example.com',
+            'email' => 'admin@example.com',
             'password' => bcrypt('password'),
             'admin' => true,
         ]);
@@ -39,10 +39,10 @@ class DatabaseSeeder extends Seeder
         }
 
         $characters = [];
-        foreach (range(1, 5) as $index) {
+        foreach (range(1, 10) as $index) {
             $characters[] = Character::create([
                 'name' => $faker->name,
-                'enemy' => $faker->boolean(30),
+                'enemy' => false,
                 'defence' => $faker->numberBetween(0, 3),
                 'strength' => $faker->numberBetween(0, 5),
                 'accuracy' => $faker->numberBetween(0, 5),
@@ -51,8 +51,22 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $places = [];
+        // add enemies
+
         foreach (range(1, 3) as $index) {
+            $characters[] = Character::create([
+                'name' => $faker->name,
+                'enemy' => true,
+                'defence' => $faker->numberBetween(0, 3),
+                'strength' => $faker->numberBetween(0, 5),
+                'accuracy' => $faker->numberBetween(0, 5),
+                'magic' => $faker->numberBetween(0, 5),
+                'user_id' => 1
+            ]);
+        }
+
+        $places = [];
+        foreach (range(1, 5) as $index) {
             array_push($places, Place::create([
                 'name' => $faker->city,
                 'image' => $faker->imageUrl(),

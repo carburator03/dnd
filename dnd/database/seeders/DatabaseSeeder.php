@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         $admin = User::create([
             'name' => 'Admin',
-            'email' => 'admin3@example.com',
+            'email' => 'admin@example.com',
             'password' => bcrypt('password'),
             'admin' => true,
         ]);
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $characters = [];
-        foreach (range(1, 5) as $index) {
+        foreach (range(1, 10) as $index) {
             $characters[] = Character::create([
                 'name' => $faker->name,
                 'enemy' => false,
@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $places = [];
-        foreach (range(1, 3) as $index) {
+        foreach (range(1, 5) as $index) {
             array_push($places, Place::create([
                 'name' => $faker->city,
                 'image' => $faker->imageUrl(),

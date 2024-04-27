@@ -101,7 +101,7 @@ Route::put('/places/update/{id}', function (Request $request, string $id) {
     return $placeService->updatePlace($request, $id);
 });
 
-Route::delete('/places/{id}', function (string $id) {
+Route::delete('/places/delete/{id}', function (string $id) {
     $placeService = new PlaceController();
     return $placeService->deletePlace($id);
 });

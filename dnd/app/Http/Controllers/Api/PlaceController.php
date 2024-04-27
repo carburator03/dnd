@@ -26,7 +26,7 @@ class PlaceController extends Controller
         $place->name = $request->name;
         $place->image = $request->image;
         $place->save();
-        return response()->json('Place created', 200);
+        return response()->json('Helyszín sikeresenlétrehozva!', 200);
     }
 
     public function updatePlace(Request $request, $id)
@@ -35,14 +35,18 @@ class PlaceController extends Controller
         $place->name = $request->name;
         $place->image = $request->image;
         $place->save();
-        return response()->json('Place updated', 200);
+        return response()->json('Helyszín sikeresen frissítve!', 200);
     }
 
     public function deletePlace($id)
     {
-        $place = Place::find($id);
-        $place->delete();
-        return response()->json('Place deleted', 200);
+        try {
+            $place = Place::findOrFail($id);
+            $place->delete();
+            return response()->json('Helyszín sikeresen törölve!', 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }
 
